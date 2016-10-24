@@ -7,7 +7,7 @@ import traceback
 
 def connect() :
         try:
-            return mysql.connector.connect(user='tone', password='oieoie18', host='db4free.net', database='pystebin')
+            return mysql.connector.connect(user='admin', password='root', host='db4free.net', database='pystebin')
         except Exception, err:
             traceback.print_exc()
             time.sleep(10000)
@@ -21,7 +21,6 @@ class main():
         os.makedirs('Downloads')
     
     t = 0 # contador de downs
-    k = 0 # contador pro efeitinho dos tres pontinhos ( ... )
     nome_do_arquivo = '' # nome do arquivo pra verificar se o get foi duplicado [ como to pegando de 3 em 3 seg pode ser que alguem nao enviou nesse tempo ]
     
     while True:
@@ -44,15 +43,8 @@ class main():
         split = str(id).split('/') # tira o / do link ex: /AbCdEfG123
 
         if nome_do_arquivo == str(split[1]) :
-            if k == 0 :
-                print('Ninguem mandou algo novo ainda, tentando novamente.')
-                k = 1
-            elif k == 1 :
-                print('Ninguem mandou algo novo ainda, tentando novamente..')
-                k = 2
-            elif k == 2 :
-                print('Ninguem mandou algo novo ainda, tentando novamente...')
-                k=0
+            for k in range(1,4):
+                print('Ninguem mandou algo novo ainda, tentando novamente' + '.'*k)
                 
             time.sleep(3) # 3 segundos pra ver se alguem mandou algo novo
             continue # ignora tudo abaixo e recomeca o loop
